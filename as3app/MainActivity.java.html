@@ -1,0 +1,114 @@
+<html>
+<head>
+<title>MainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MainActivity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.deybian.as3app</span><span class="s0">;</span>
+
+import <span class="s1">androidx.appcompat.app.AppCompatActivity</span><span class="s0">;</span>
+
+import <span class="s1">android.content.Intent</span><span class="s0">;</span>
+import <span class="s1">android.content.SearchRecentSuggestionsProvider</span><span class="s0">;</span>
+import <span class="s1">android.os.Bundle</span><span class="s0">;</span>
+import <span class="s1">android.view.View</span><span class="s0">;</span>
+import <span class="s1">android.widget.Button</span><span class="s0">;</span>
+import <span class="s1">android.widget.EditText</span><span class="s0">;</span>
+import <span class="s1">android.widget.Toast</span><span class="s0">;</span>
+
+import <span class="s1">com.android.volley.AuthFailureError</span><span class="s0">;</span>
+import <span class="s1">com.android.volley.Request</span><span class="s0">;</span>
+import <span class="s1">com.android.volley.RequestQueue</span><span class="s0">;</span>
+import <span class="s1">com.android.volley.Response</span><span class="s0">;</span>
+import <span class="s1">com.android.volley.VolleyError</span><span class="s0">;</span>
+import <span class="s1">com.android.volley.toolbox.StringRequest</span><span class="s0">;</span>
+import <span class="s1">com.android.volley.toolbox.Volley</span><span class="s0">;</span>
+
+import <span class="s1">java.util.HashMap</span><span class="s0">;</span>
+import <span class="s1">java.util.Map</span><span class="s0">;</span>
+import <span class="s1">java.util.logging.StreamHandler</span><span class="s0">;</span>
+
+public class <span class="s1">MainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity {</span>
+    EditText edtUsuario<span class="s0">, </span><span class="s1">edtPassword</span><span class="s0">;</span>
+    <span class="s1">Button btnLogin</span><span class="s0">;</span>
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span>
+        <span class="s1">setContentView(R.layout.activity_main)</span><span class="s0">;</span>
+        <span class="s1">edtUsuario=findViewById(R.id.txtusuario)</span><span class="s0">;</span>
+        <span class="s1">edtPassword=findViewById(R.id.txtpassword)</span><span class="s0">;</span>
+        <span class="s1">btnLogin=findViewById(R.id.buttoni)</span><span class="s0">;</span>
+
+        <span class="s1">btnLogin.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() {</span>
+            @Override
+            <span class="s0">public void </span><span class="s1">onClick(View v) {</span>
+                validarUsuario(<span class="s2">&quot;http://192.168.1.6/dey/validar_usuario.php&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        })<span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+
+
+    <span class="s0">private  void  </span><span class="s1">validarUsuario(String URL){</span>
+        StringRequest stringRequest= <span class="s0">new </span><span class="s1">StringRequest(Request.Method.POST</span><span class="s0">, </span><span class="s1">URL</span><span class="s0">, new </span><span class="s1">Response.Listener&lt;String&gt;() {</span>
+            @Override
+            <span class="s0">public void </span><span class="s1">onResponse(String response) {</span>
+                <span class="s0">if</span><span class="s1">(!response.isEmpty()){</span>
+                    Intent intent =<span class="s0">new </span><span class="s1">Intent(getApplicationContext()</span><span class="s0">,</span><span class="s1">Main3Activity.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s1">startActivity(intent)</span><span class="s0">;</span>
+                <span class="s1">}</span><span class="s0">else</span><span class="s1">{</span>
+                    Toast.makeText(MainActivity.<span class="s0">this, </span><span class="s2">&quot;Usuario o contraseña invalidos&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span>
+
+                <span class="s1">}</span>
+
+            }
+        }<span class="s0">, new </span><span class="s1">Response.ErrorListener() {</span>
+            @Override
+            <span class="s0">public void </span><span class="s1">onErrorResponse(VolleyError error) {</span>
+
+                Toast.makeText(MainActivity.<span class="s0">this, </span><span class="s1">error.toString()</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span>
+
+            <span class="s1">}</span>
+        }){
+            @Override
+            <span class="s0">protected </span><span class="s1">Map&lt;String</span><span class="s0">, </span><span class="s1">String&gt; getParams() </span><span class="s0">throws </span><span class="s1">AuthFailureError {</span>
+                Map&lt;String<span class="s0">,</span><span class="s1">String&gt; parametros = </span><span class="s0">new </span><span class="s1">HashMap&lt;String</span><span class="s0">, </span><span class="s1">String&gt;()</span><span class="s0">;</span>
+                <span class="s1">parametros.put(</span><span class="s2">&quot;usuario&quot;</span><span class="s0">,</span><span class="s1">edtUsuario.getText().toString())</span><span class="s0">;</span>
+                <span class="s1">parametros.put(</span><span class="s2">&quot;password&quot;</span><span class="s0">,</span><span class="s1">edtPassword.getText().toString())</span><span class="s0">;</span>
+                return <span class="s1">parametros</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        }<span class="s0">;</span>
+
+        <span class="s1">RequestQueue requestQueue = Volley.newRequestQueue(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">requestQueue.add(stringRequest)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+
+
+
+
+
+    <span class="s3">//PASO A PANTALLA DE REGISTRO</span>
+    <span class="s0">public void </span><span class="s1">cambio(View view){</span>
+        Intent cambio = <span class="s0">new </span><span class="s1">Intent(</span><span class="s0">this, </span><span class="s1">Main2Activity.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">startActivity(cambio)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+}
+</pre>
+</body>
+</html>

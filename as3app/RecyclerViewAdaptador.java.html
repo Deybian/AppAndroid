@@ -1,0 +1,126 @@
+<html>
+<head>
+<title>RecyclerViewAdaptador.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+RecyclerViewAdaptador.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.deybian.as3app</span><span class="s0">;</span>
+
+import <span class="s1">android.content.Context</span><span class="s0">;</span>
+import <span class="s1">android.content.Intent</span><span class="s0">;</span>
+import <span class="s1">android.view.LayoutInflater</span><span class="s0">;</span>
+import <span class="s1">android.view.View</span><span class="s0">;</span>
+import <span class="s1">android.view.ViewGroup</span><span class="s0">;</span>
+import <span class="s1">android.widget.ImageView</span><span class="s0">;</span>
+import <span class="s1">android.widget.LinearLayout</span><span class="s0">;</span>
+import <span class="s1">android.widget.TextView</span><span class="s0">;</span>
+
+import <span class="s1">androidx.annotation.NonNull</span><span class="s0">;</span>
+import <span class="s1">androidx.recyclerview.widget.RecyclerView</span><span class="s0">;</span>
+
+import <span class="s1">java.util.List</span><span class="s0">;</span>
+
+public class <span class="s1">RecyclerViewAdaptador </span><span class="s0">extends </span><span class="s1">RecyclerView.Adapter&lt;RecyclerViewAdaptador.ViewHolder&gt; {</span>
+
+
+    <span class="s0">private </span><span class="s1">Context mContext </span><span class="s0">;</span>
+    private <span class="s1">List&lt;modelopuerta&gt; mData </span><span class="s0">;</span>
+
+
+
+    public <span class="s1">RecyclerViewAdaptador(Context mContext</span><span class="s0">, </span><span class="s1">List&lt;modelopuerta&gt; mData) {</span>
+        <span class="s0">this</span><span class="s1">.mContext = mContext</span><span class="s0">;</span>
+        this<span class="s1">.mData = mData</span><span class="s0">;</span>
+
+        <span class="s2">// Request option for Glide</span>
+
+
+    <span class="s1">}</span>
+
+    @Override
+    <span class="s0">public </span><span class="s1">ViewHolder onCreateViewHolder(ViewGroup parent</span><span class="s0">, int </span><span class="s1">viewType) {</span>
+
+        View view <span class="s0">;</span>
+        <span class="s1">LayoutInflater inflater = LayoutInflater.from(mContext)</span><span class="s0">;</span>
+        <span class="s1">view = inflater.inflate(R.layout.itemlista</span><span class="s0">,</span><span class="s1">parent</span><span class="s0">,false</span><span class="s1">) </span><span class="s0">;</span>
+        final <span class="s1">MyViewHolder viewHolder = </span><span class="s0">new </span><span class="s1">MyViewHolder(view) </span><span class="s0">;</span>
+        <span class="s1">viewHolder.view_container.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() {</span>
+            @Override
+            <span class="s0">public void </span><span class="s1">onClick(View v) {</span>
+
+                Intent i = <span class="s0">new </span><span class="s1">Intent(mContext</span><span class="s0">, </span><span class="s1">Main4Activity.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">i.putExtra(</span><span class="s3">&quot;titulo&quot;</span><span class="s0">,</span><span class="s1">mData.get(viewHolder.getAdapterPosition()).getTitu())</span><span class="s0">;</span>
+                <span class="s1">i.putExtra(</span><span class="s3">&quot;description&quot;</span><span class="s0">,</span><span class="s1">mData.get(viewHolder.getAdapterPosition()).getDes())</span><span class="s0">;</span>
+                <span class="s1">i.putExtra(</span><span class="s3">&quot;imgpuerta&quot;</span><span class="s0">,</span><span class="s1">mData.get(viewHolder.getAdapterPosition()).getImgpuerta())</span><span class="s0">;</span>
+
+
+                <span class="s1">mContext.startActivity(i)</span><span class="s0">;</span>
+
+            <span class="s1">}</span>
+        })<span class="s0">;</span>
+
+
+
+
+        return <span class="s1">viewHolder</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    @Override
+    <span class="s0">public void </span><span class="s1">onBindViewHolder(MyViewHolder holder</span><span class="s0">, int </span><span class="s1">position) {</span>
+
+        holder.titu.setText(mData.get(position).getTitu())<span class="s0">;</span>
+        <span class="s1">holder.des.setText(mData.get(position).getDes())</span><span class="s0">;</span>
+        <span class="s1">holder.imgpuerta.setText(mData.get(position).getImgpuerta())</span><span class="s0">;</span>
+
+        <span class="s2">// Load Image from the internet and set it into Imageview using Glide</span>
+
+
+
+
+
+    <span class="s1">}</span>
+
+    @Override
+    <span class="s0">public int </span><span class="s1">getItemCount() {</span>
+        <span class="s0">return </span><span class="s1">mData.size()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public static class </span><span class="s1">MyViewHolder </span><span class="s0">extends </span><span class="s1">RecyclerView.ViewHolder {</span>
+
+        TextView titu<span class="s0">;</span>
+        <span class="s1">TextView des </span><span class="s0">;</span>
+        <span class="s1">TextView imgpuerta </span><span class="s0">;</span>
+
+
+
+
+
+
+        public <span class="s1">MyViewHolder(View itemView) {</span>
+            <span class="s0">super</span><span class="s1">(itemView)</span><span class="s0">;</span>
+
+            <span class="s1">view_container = itemView.findViewById(R.id.container)</span><span class="s0">;</span>
+            <span class="s1">titu = itemView.findViewById(R.id.materiall)</span><span class="s0">;</span>
+            <span class="s1">des = itemView.findViewById(R.id.desmateriall)</span><span class="s0">;</span>
+            <span class="s1">imgpuerta = itemView.findViewById(R.id.imgmain)</span><span class="s0">;</span>
+
+        <span class="s1">}</span>
+    }
+
+
+
+}
+</pre>
+</body>
+</html>

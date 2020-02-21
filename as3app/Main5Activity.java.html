@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>Main5Activity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Main5Activity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.deybian.as3app</span><span class="s0">;</span>
+
+import <span class="s1">androidx.appcompat.app.AppCompatActivity</span><span class="s0">;</span>
+import <span class="s1">androidx.recyclerview.widget.LinearLayoutManager</span><span class="s0">;</span>
+import <span class="s1">androidx.recyclerview.widget.RecyclerView</span><span class="s0">;</span>
+
+import <span class="s1">android.content.Intent</span><span class="s0">;</span>
+import <span class="s1">android.os.Bundle</span><span class="s0">;</span>
+import <span class="s1">android.view.View</span><span class="s0">;</span>
+
+import <span class="s1">com.android.volley.RequestQueue</span><span class="s0">;</span>
+import <span class="s1">com.android.volley.Response</span><span class="s0">;</span>
+import <span class="s1">com.android.volley.VolleyError</span><span class="s0">;</span>
+import <span class="s1">com.android.volley.toolbox.JsonArrayRequest</span><span class="s0">;</span>
+import <span class="s1">com.android.volley.toolbox.Volley</span><span class="s0">;</span>
+
+import <span class="s1">org.json.JSONArray</span><span class="s0">;</span>
+import <span class="s1">org.json.JSONException</span><span class="s0">;</span>
+import <span class="s1">org.json.JSONObject</span><span class="s0">;</span>
+
+import <span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+import <span class="s1">java.util.List</span><span class="s0">;</span>
+
+public class <span class="s1">Main5Activity </span><span class="s0">extends </span><span class="s1">AppCompatActivity {</span>
+
+    <span class="s0">private </span><span class="s1">RecyclerView recyclerViewmodelmaterial</span><span class="s0">;</span>
+    private <span class="s1">RecyclerViewAdaptador2 adaptadormodelmaterial</span><span class="s0">;</span>
+
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span>
+        <span class="s1">setContentView(R.layout.activity_main5)</span><span class="s0">;</span>
+
+        <span class="s1">recyclerViewmodelmaterial=(RecyclerView)findViewById(R.id.listamaterial)</span><span class="s0">;</span>
+        <span class="s1">recyclerViewmodelmaterial.setLayoutManager(</span><span class="s0">new </span><span class="s1">LinearLayoutManager(</span><span class="s0">this</span><span class="s1">))</span><span class="s0">;</span>
+
+        <span class="s1">adaptadormodelmaterial=</span><span class="s0">new </span><span class="s1">RecyclerViewAdaptador2(obtenermaterial())</span><span class="s0">;</span>
+        <span class="s1">recyclerViewmodelmaterial.setAdapter(adaptadormodelmaterial)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+
+    <span class="s0">public </span><span class="s1">List&lt;modelomaterial&gt; obtenermaterial(){</span>
+        List&lt;modelomaterial&gt; mmaterial=<span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s1">mmaterial.add(</span><span class="s0">new </span><span class="s1">modelomaterial(</span><span class="s2">&quot;Pino&quot;</span><span class="s0">,</span><span class="s2">&quot;Madera más económica y más trabajada al día de hoy. Madera blanda, de tonos claros y que adquiere un característico color miel cuando se sella.                Precio: S/. 4.99 m2&quot;</span><span class="s0">,</span><span class="s1">R.drawable.material1))</span><span class="s0">;</span>
+        <span class="s1">mmaterial.add(</span><span class="s0">new </span><span class="s1">modelomaterial(</span><span class="s2">&quot;Maple&quot;</span><span class="s0">,</span><span class="s2">&quot;MAdera de color blanco cremoso con un ligero matiz café rojizo que ofrece una textura fina y cerrada con muestras de dibujos rizados, en forma de violín.                     Precio: S/. 5.99 m2&quot;</span><span class="s0">,</span><span class="s1">R.drawable.material2))</span><span class="s0">;</span>
+        <span class="s1">mmaterial.add(</span><span class="s0">new </span><span class="s1">modelomaterial(</span><span class="s2">&quot;Abedul&quot;</span><span class="s0">,</span><span class="s2">&quot;Madera  amarillenta de tonos claros y de grano fino. Es una madera elástica, especial para los revestimientos de interior, como frisos, molduras o rodapiés.                Precio: S/. 6.99 m2&quot;</span><span class="s0">,</span><span class="s1">R.drawable.material3))</span><span class="s0">;</span>
+        <span class="s1">mmaterial.add(</span><span class="s0">new </span><span class="s1">modelomaterial(</span><span class="s2">&quot;Roble Claro&quot;</span><span class="s0">,</span><span class="s2">&quot;Madera muy resistente y duradera. Su grano es abierto y basto. Con el tiempo su tonalidad pasa de un marrón claro o medio a un gris aterciopelado.                Precio: S/. 8.99 m2&quot;</span><span class="s0">,</span><span class="s1">R.drawable.material4))</span><span class="s0">;</span>
+        <span class="s1">mmaterial.add(</span><span class="s0">new </span><span class="s1">modelomaterial(</span><span class="s2">&quot;Caoba&quot;</span><span class="s0">,</span><span class="s2">&quot;Madera tropical, oscura, de color rojizo intenso y de grano fino, que cuenta con resistencia natural a la carcoma.                Precio: S/. 7.99 m2&quot;</span><span class="s0">,</span><span class="s1">R.drawable.material5))</span><span class="s0">;</span>
+        <span class="s1">mmaterial.add(</span><span class="s0">new </span><span class="s1">modelomaterial(</span><span class="s2">&quot;Cedro&quot;</span><span class="s0">,</span><span class="s2">&quot;Madera blanda-dura aromática, duradera y densa y fragil. Tipo de madera muy interesante ya que su aroma repele a los insectos, entre ellos las polillas.                Precio: S/. 9.99 m2&quot;</span><span class="s0">,</span><span class="s1">R.drawable.material6))</span><span class="s0">;</span>
+
+
+
+        return <span class="s1">mmaterial</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">siguiente5(View view){</span>
+        Intent cambio = <span class="s0">new </span><span class="s1">Intent(</span><span class="s0">this, </span><span class="s1">Main6Activity.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">startActivity(cambio)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+}
+</pre>
+</body>
+</html>
